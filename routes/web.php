@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +22,21 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
-Route::get('/check-database', function () {
-    try {
-        DB::connection()->getPdo();
-        return "Database connection is successful!";
-    } catch (\Exception $e) {
-        return "Could not connect to the database. Error: " . $e->getMessage();
-    }
-});
+// Route::get('/check-database', function () {
+//     try {
+//         DB::connection()->getPdo();
+//         return "Database connection is successful!";
+//     } catch (\Exception $e) {
+//         return "Could not connect to the database. Error: " . $e->getMessage();
+//     }
+// });
+
+Route::post('/import-students', [StudentController::class, 'import']);
+Route::get('/upload-students', [StudentController::class, 'showUploadForm']);
+
+Route::get('/view-data', [StudentController::class, 'viewData']);
+Route::get('/students-data', [StudentController::class, 'getStudents']);
+Route::delete('/delete-student/{id}', [StudentController::class, 'deleteStudent']);
 
